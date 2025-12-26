@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Power BI Dashboard - Complete Guide v2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #FFFFFF;
+            background: linear-gradient(135deg, #191414 0%, #1DB954 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #191414;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(29, 185, 84, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1DB954 0%, #1ED760 100%);
+            padding: 40px;
+            text-align: center;
+            border-bottom: 4px solid #1DB954;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            color: #191414;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        header p {
+            font-size: 1.2em;
+            color: #191414;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        h2 {
+            color: #1DB954;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1DB954;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #1ED760;
+            margin: 20px 0 10px 0;
+            font-size: 1.4em;
+        }
+        
+        h4 {
+            color: #B3B3B3;
+            margin: 15px 0 10px 0;
+            font-size: 1.1em;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            color: #B3B3B3;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            color: #B3B3B3;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        code {
+            background: #282828;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #1DB954;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background: #282828;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #1DB954;
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+            color: #1ED760;
+            font-size: 0.95em;
+        }
+        
+        .note {
+            background: #282828;
+            border-left: 4px solid #1DB954;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning {
+            background: #3D2817;
+            border-left: 4px solid #FF6B35;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .success {
+            background: #1A3D2E;
+            border-left: 4px solid #1DB954;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #282828;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: #1DB954;
+            color: #191414;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #404040;
+            color: #B3B3B3;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .toc {
+            background: #282828;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border: 2px solid #1DB954;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #1DB954;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            color: #1ED760;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc a:hover {
+            color: #FFFFFF;
+        }
+        
+        .checkpoint {
+            background: linear-gradient(135deg, #282828 0%, #1A3D2E 100%);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border: 2px solid #1DB954;
+        }
+        
+        .checkpoint h4 {
+            color: #1DB954;
+            margin-top: 0;
+        }
+        
+        footer {
+            background: #282828;
+            padding: 30px;
+            text-align: center;
+            color: #B3B3B3;
+            border-top: 2px solid #1DB954;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            h2, h3 {
+                color: #1DB954;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎵 Spotify Power BI Dashboard</h1>
+            <p>Complete Step-by-Step Guide v2.0 - From CSV to Professional 4-Page Dashboard</p>
+        </header>
+        
+        <div class="content">
+            <div class="toc">
+                <h3>📑 Table of Contents</h3>
+                <ul>
+                    <li><a href="#introduction">1. Introduction & Project Overview</a></li>
+                    <li><a href="#star-schema">2. Star Schema Theory</a></li>
+                    <li><a href="#setup">3. Environment Setup</a></li>
+                    <li><a href="#import">4. Data Import</a></li>
+                    <li><a href="#audit">5. Data Quality Audit</a></li>
+                    <li><a href="#calculated">6. Calculated Columns (Power Query)</a></li>
+                    <li><a href="#star-creation">7. Star Schema Creation</a></li>
+                    <li><a href="#fact">8. FACT_Tracks Transformation</a></li>
+                    <li><a href="#dim-artists">9. DIM_Artists Transformation</a></li>
+                    <li><a href="#dim-albums">10. DIM_Albums Transformation</a></li>
+                    <li><a href="#relationships">11. Model Relationships</a></li>
+                    <li><a href="#dax">12. DAX Measures & Columns</a></li>
+                    <li><a href="#theme">13. Custom Spotify Theme</a></li>
+                    <li><a href="#page1">14. Page 1: Executive Overview</a></li>
+                    <li><a href="#page2">15. Page 2: Artist Deep Dive</a></li>
+                    <li><a href="#page3">16. Page 3: Content Analysis</a></li>
+                    <li><a href="#page4">17. Page 4: Timeline & Trends</a></li>
+                    <li><a href="#storytelling">18. Storytelling & Insights</a></li>
+                    <li><a href="#troubleshooting">19. Troubleshooting</a></li>
+                    <li><a href="#glossary">20. Glossary</a></li>
+                </ul>
+            </div>
+
+            <h2 id="introduction">1. Introduction & Project Overview</h2>
+            
+            <h3>Project Goals</h3>
+            <p>Build a professional, portfolio-ready Power BI dashboard analyzing Spotify music data with:</p>
+            <ul>
+                <li>Star Schema data model (1 FACT table, 2 DIM tables)</li>
+                <li>Power Query transformations (data cleaning, calculated columns)</li>
+                <li>DAX measures and calculated columns</li>
+                <li>Custom Spotify-themed design</li>
+                <li>4 analytical pages with interactive visualizations</li>
+                <li>Professional storytelling and insights</li>
+            </ul>
+            
+            <h3>Data Source</h3>
+            <p><strong>File:</strong> track_data_final.csv</p>
+            <ul>
+                <li><strong>Rows:</strong> 8,778 tracks (8,774 after cleaning)</li>
+                <li><strong>Columns:</strong> 15 attributes</li>
+                <li><strong>Time Range:</strong> Albums from 1960-2024</li>
+            </ul>
+            
+            <h3>Final Deliverables</h3>
+            <ul>
+                <li>4-page interactive dashboard</li>
+                <li>Star Schema model (FACT_Tracks, DIM_Artists, DIM_Albums)</li>
+                <li>15+ DAX measures and calculated columns</li>
+                <li>10+ professional visualizations</li>
+                <li>Custom JSON theme</li>
+                <li>Complete HTML documentation</li>
+            </ul>
+
+            <h2 id="star-schema">2. Star Schema Theory</h2>
+            
+            <h3>Why Star Schema?</h3>
+            <p>Transform flat CSV data into dimensional model for better performance and maintainability.</p>
+            
+            <div class="note">
+                <h4>Problem with Flat Data</h4>
+                <p>Beyoncé appears in 324 rows with identical artist data (name, popularity, followers) = redundancy and slow performance.</p>
+            </div>
+            
+            <h3>Star Schema Benefits</h3>
+            <table>
+                <tr>
+                    <th>Benefit</th>
+                    <th>Explanation</th>
+                </tr>
+                <tr>
+                    <td>Eliminate Redundancy</td>
+                    <td>Each artist stored once (not 324 times)</td>
+                </tr>
+                <tr>
+                    <td>Faster Calculations</td>
+                    <td>No duplicate aggregation</td>
+                </tr>
+                <tr>
+                    <td>Easier Maintenance</td>
+                    <td>Update artist data in one place</td>
+                </tr>
+                <tr>
+                    <td>Better Scalability</td>
+                    <td>Handle millions of rows efficiently</td>
+                </tr>
+                <tr>
+                    <td>Industry Standard</td>
+                    <td>Best practice for BI/Analytics</td>
+                </tr>
+            </table>
+            
+            <h3>Our Star Schema Structure</h3>
+            <pre><code>DIM_Artists (2,549 rows)
+    ├── artist_name (PRIMARY KEY)
+    ├── artist_popularity
+    ├── artist_followers
+    ├── artist_genres
+    ├── primary_genre
+    └── main_category
+
+FACT_Tracks (8,774 rows)
+    ├── track_id (PRIMARY KEY)
+    ├── track_name
+    ├── track_number
+    ├── track_popularity
+    ├── track_duration_ms
+    ├── track_duration_min
+    ├── track_duration_sec
+    ├── explicit
+    ├── is_explicit
+    ├── explicit_label
+    ├── artist_name (FOREIGN KEY → DIM_Artists)
+    └── album_id (FOREIGN KEY → DIM_Albums)
+
+DIM_Albums (5,317 rows)
+    ├── album_id (PRIMARY KEY)
+    ├── album_name
+    ├── album_release_date
+    ├── album_total_tracks
+    ├── album_type
+    ├── artist_name
+    └── Decade</code></pre>
+
+            <h2 id="setup">3. Environment Setup</h2>
+            
+            <h3>Requirements</h3>
+            <ul>
+                <li><strong>Software:</strong> Power BI Desktop (latest version)</li>
+                <li><strong>Data File:</strong> track_data_final.csv</li>
+                <li><strong>Skills:</strong> Basic Excel, SQL knowledge helpful but not required</li>
+            </ul>
+            
+            <h3>Power BI Desktop Installation</h3>
+            <ol>
+                <li>Download from Microsoft Store or powerbi.microsoft.com</li>
+                <li>Install and launch application</li>
+                <li>No login required for desktop version</li>
+            </ol>
+
+            <h2 id="import">4. Data Import</h2>
+            
+            <h3>Steps</h3>
+            <ol>
+                <li>Home → Get Data → Text/CSV</li>
+                <li>Select track_data_final.csv</li>
+                <li>Click "Transform Data" (NOT "Load"!)</li>
+                <li>Power Query Editor opens</li>
+            </ol>
+            
+            <div class="checkpoint">
+                <h4>✅ Checkpoint</h4>
+                <p>You should see 8,778 rows and 15 columns in Power Query Editor.</p>
+            </div>
+
+            <h2 id="audit">5. Data Quality Audit</h2>
+            
+            <h3>Enable Quality Tools</h3>
+            <ol>
+                <li>View tab → Column Quality ✓</li>
+                <li>View tab → Column Distribution ✓</li>
+                <li>View tab → Column Profile ✓</li>
+                <li><strong>IMPORTANT:</strong> Bottom status bar → "Column profiling based on entire data set"</li>
+            </ol>
+            
+            <h3>Key Findings</h3>
+            <table>
+                <tr>
+                    <th>Column</th>
+                    <th>Issue</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td>track_id</td>
+                    <td>✅ Perfect (8,778 unique)</td>
+                    <td>None - use as PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>artist_name</td>
+                    <td>⚠️ 4 empty strings ("")</td>
+                    <td>Remove rows</td>
+                </tr>
+                <tr>
+                    <td>track_duration_ms</td>
+                    <td>⚠️ 2 rows with 0ms</td>
+                    <td>Remove rows</td>
+                </tr>
+            </table>
+            
+            <h3>Cleaning Steps</h3>
+            
+            <h4>Remove Empty Artist Names</h4>
+            <ol>
+                <li>Click dropdown on <code>artist_name</code> column</li>
+                <li>Uncheck (blank) and empty string</li>
+                <li>OK</li>
+                <li>Result: 8,774 rows (-4)</li>
+            </ol>
+            
+            <h4>Remove Zero Duration Tracks</h4>
+            <ol>
+                <li>Click dropdown on <code>track_duration_ms</code></li>
+                <li>Number Filters → Greater Than → 0</li>
+                <li>OK</li>
+                <li>Result: 8,772 rows (-2 more)</li>
+            </ol>
+            
+            <div class="success">
+                <h4>✅ Data Clean!</h4>
+                <p>Final dataset: <strong>8,774 rows</strong> (0.07% removed)</p>
+            </div>
+
+            <h2 id="calculated">6. Calculated Columns (Power Query)</h2>
+            
+            <h3>Column 1: track_duration_min</h3>
+            <p><strong>Purpose:</strong> Convert milliseconds to minutes (more readable)</p>
+            
+            <h4>Steps</h4>
+            <ol>
+                <li>Add Column → Custom Column</li>
+                <li>Name: <code>track_duration_min</code></li>
+                <li>Formula: <code>[track_duration_ms] / 60000</code></li>
+                <li>OK</li>
+                <li>Change type: Decimal Number</li>
+            </ol>
+            
+            <h3>Column 2: track_duration_sec</h3>
+            <p><strong>Purpose:</strong> Alternative format in seconds</p>
+            
+            <h4>Steps</h4>
+            <ol>
+                <li>Add Column → Custom Column</li>
+                <li>Name: <code>track_duration_sec</code></li>
+                <li>Formula: <code>[track_duration_ms] / 1000</code></li>
+                <li>OK</li>
+                <li>Change type: Decimal Number</li>
+            </ol>
+            
+            <h3>Column 3: is_explicit</h3>
+            <p><strong>Purpose:</strong> Convert boolean to numeric (for math operations)</p>
+            
+            <h4>Steps</h4>
+            <ol>
+                <li>Add Column → Custom Column</li>
+                <li>Name: <code>is_explicit</code></li>
+                <li>Formula: <code>if [explicit] = true then 1 else 0</code></li>
+                <li>OK</li>
+                <li>Change type: Whole Number</li>
+            </ol>
+            
+            <div class="note">
+                <h4>💡 Power Query vs DAX Decision</h4>
+                <p><strong>Power Query:</strong> Simple transformations, one-time calculations at refresh</p>
+                <p><strong>DAX:</strong> Aggregations, context-dependent calculations, relationships</p>
+            </div>
+
+            <h2 id="star-creation">7. Star Schema Creation</h2>
+            
+            <h3>Strategy</h3>
+            <ol>
+                <li>Keep original query as FACT_Tracks</li>
+                <li>Duplicate twice for DIM_Artists_RAW and DIM_Albums_RAW</li>
+                <li>Transform each independently</li>
+            </ol>
+            
+            <h3>Create Duplicates</h3>
+            <ol>
+                <li>Right-click on query (track_data_final) → Duplicate</li>
+                <li>Rename to: DIM_Artists</li>
+                <li>Duplicate original again → Rename to: DIM_Albums</li>
+                <li>Rename original to: FACT_Tracks</li>
+            </ol>
+            
+            <div class="checkpoint">
+                <h4>✅ Checkpoint</h4>
+                <p>You should have 3 queries: FACT_Tracks, DIM_Artists, DIM_Albums</p>
+            </div>
+
+            <h2 id="fact">8. FACT_Tracks Transformation</h2>
+            
+            <h3>Columns to Keep (11)</h3>
+            <ul>
+                <li>track_id (identifier)</li>
+                <li>track_name, track_number</li>
+                <li>track_popularity (metric)</li>
+                <li>track_duration_ms, track_duration_min, track_duration_sec (metrics)</li>
+                <li>explicit, is_explicit (metrics)</li>
+                <li>artist_name (FOREIGN KEY)</li>
+                <li>album_id (FOREIGN KEY)</li>
+            </ul>
+            
+            <h3>Steps</h3>
+            <ol>
+                <li>Click on FACT_Tracks query</li>
+                <li>Ctrl+Click the 11 columns to keep</li>
+                <li>Right-click → Remove Other Columns</li>
+            </ol>
+            
+            <div class="warning">
+                <h4>⚠️ Don't Panic!</h4>
+                <p>Removed columns aren't lost - they're in DIM tables, linked via relationships!</p>
+            </div>
+
+            <h2 id="dim-artists">9. DIM_Artists Transformation</h2>
+            
+            <h3>Step 1: Remove Other Columns</h3>
+            <p>Keep only 4 columns:</p>
+            <ul>
+                <li>artist_name (PRIMARY KEY)</li>
+                <li>artist_popularity</li>
+                <li>artist_followers</li>
+                <li>artist_genres</li>
+            </ul>
+            
+            <h3>Step 2: Group By (Deduplication)</h3>
+            
+            <div class="note">
+                <h4>🤔 Why Group By?</h4>
+                <p>Beyoncé has 324 tracks = 324 identical rows with her data. Group By collapses to 1 row!</p>
+            </div>
+            
+            <h4>Configuration</h4>
+            <ol>
+                <li>Home → Group By</li>
+                <li>Group by: <code>artist_name</code></li>
+                <li>New column name: <code>artist_popularity</code> | Operation: Max | Column: artist_popularity</li>
+                <li>Add aggregation: <code>artist_followers</code> | Max | artist_followers</li>
+                <li>Add aggregation: <code>artist_genres</code> | Max | artist_genres</li>
+                <li>OK</li>
+            </ol>
+            
+            <p><strong>Result:</strong> 8,774 rows → <strong>2,549 rows</strong> (unique artists)</p>
+            
+            <h3>Step 3: Genre Processing (Advanced)</h3>
+            
+            <h4>Extract Primary Genre</h4>
+            <pre><code>// Add Column → Custom Column
+// Name: primary_genre
+if [artist_genres] = null or [artist_genres] = "" or [artist_genres] = "[]" then "Unknown"
+else 
+    let
+        cleaned = Text.Replace([artist_genres], "[", ""),
+        cleaned2 = Text.Replace(cleaned, "]", ""),
+        cleaned3 = Text.Replace(cleaned2, "'", ""),
+        split = Text.Split(cleaned3, ","),
+        first = List.First(split, "Unknown")
+    in
+        if Text.Trim(first) = "" then "Unknown" else Text.Trim(first)</code></pre>
+            
+            <h4>Create Main Categories</h4>
+            <pre><code>// Add Column → Custom Column
+// Name: main_category
+if [primary_genre] = "Unknown" then "Unknown"
+else if Text.Contains([primary_genre], "pop") then "Pop"
+else if Text.Contains([primary_genre], "hip hop") or Text.Contains([primary_genre], "rap") then "Hip Hop"
+else if Text.Contains([primary_genre], "rock") or Text.Contains([primary_genre], "metal") then "Rock"
+else if Text.Contains([primary_genre], "r&b") or Text.Contains([primary_genre], "soul") then "R&B/Soul"
+else if Text.Contains([primary_genre], "latin") or Text.Contains([primary_genre], "reggaeton") then "Latin"
+else if Text.Contains([primary_genre], "country") then "Country"
+else if Text.Contains([primary_genre], "electronic") or Text.Contains([primary_genre], "house") or Text.Contains([primary_genre], "bass") or Text.Contains([primary_genre], "edm") then "Electronic"
+else if Text.Contains([primary_genre], "jazz") then "Jazz"
+else if Text.Contains([primary_genre], "folk") then "Folk"
+else "Other"</code></pre>
+            
+            <div class="success">
+                <h4>✅ Result</h4>
+                <p>~10 clean categories instead of hundreds of genre combinations!</p>
+            </div>
+
+            <h2 id="dim-albums">10. DIM_Albums Transformation</h2>
+            
+            <h3>Columns to Keep (6)</h3>
+            <ul>
+                <li>album_id (PRIMARY KEY)</li>
+                <li>album_name</li>
+                <li>album_release_date</li>
+                <li>album_total_tracks</li>
+                <li>album_type</li>
+                <li>artist_name (which artist recorded album)</li>
+            </ul>
+            
+            <h3>Group By Configuration</h3>
+            <ol>
+                <li>Group by: <code>album_id</code></li>
+                <li>5 Aggregations (all Max operation):
+                    <ul>
+                        <li>album_name</li>
+                        <li>album_release_date</li>
+                        <li>album_total_tracks</li>
+                        <li>album_type</li>
+                        <li>artist_name</li>
+                    </ul>
+                </li>
+                <li>OK</li>
+            </ol>
+            
+            <p><strong>Result:</strong> 8,774 rows → <strong>5,317 rows</strong> (unique albums)</p>
+            
+            <h3>Close & Apply</h3>
+            <p>Home → Close & Apply (load to Power BI, ~30 seconds)</p>
+
+            <h2 id="relationships">11. Model Relationships</h2>
+            
+            <h3>Access Model View</h3>
+            <p>Left sidebar → Third icon (🔗 Model view)</p>
+            
+            <h3>Auto-Detected Relationships</h3>
+            
+            <h4>Relationship 1: Tracks to Artists</h4>
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>From</td>
+                    <td>FACT_Tracks[artist_name]</td>
+                </tr>
+                <tr>
+                    <td>To</td>
+                    <td>DIM_Artists[artist_name]</td>
+                </tr>
+                <tr>
+                    <td>Cardinality</td>
+                    <td>Many to One (*:1)</td>
+                </tr>
+                <tr>
+                    <td>Cross filter</td>
+                    <td>Single</td>
+                </tr>
+                <tr>
+                    <td>Active</td>
+                    <td>✓ Yes</td>
+                </tr>
+            </table>
+            
+            <h4>Relationship 2: Tracks to Albums</h4>
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>From</td>
+                    <td>FACT_Tracks[album_id]</td>
+                </tr>
+                <tr>
+                    <td>To</td>
+                    <td>DIM_Albums[album_id]</td>
+                </tr>
+                <tr>
+                    <td>Cardinality</td>
+                    <td>Many to One (*:1)</td>
+                </tr>
+                <tr>
+                    <td>Cross filter</td>
+                    <td>Single</td>
+                </tr>
+                <tr>
+                    <td>Active</td>
+                    <td>✓ Yes</td>
+                </tr>
+            </table>
+            
+            <div class="note">
+                <h4>💡 Many-to-One Explained</h4>
+                <p>324 tracks (many) link to 1 Beyoncé row (one) in DIM_Artists</p>
+            </div>
+
+            <h2 id="dax">12. DAX Measures & Columns</h2>
+            
+            <h3>Create KPI Table</h3>
+            <p>Home → Enter Data → Create table named "KPI" with formula:</p>
+            <pre><code>KPI = {0}</code></pre>
+            
+            <h3>Basic Metrics (Display Folder: "1. Basic Metrics")</h3>
+            
+            <h4>Total Tracks</h4>
+            <pre><code>Total Tracks = COUNTROWS(FACT_Tracks)</code></pre>
+            <p>Format: Whole number, 1000 separator</p>
+            
+            <h4>Total Artists</h4>
+            <pre><code>Total Artists = DISTINCTCOUNT(FACT_Tracks[artist_name])</code></pre>
+            
+            <h4>Total Albums</h4>
+            <pre><code>Total Albums = DISTINCTCOUNT(FACT_Tracks[album_id])</code></pre>
+            
+            <h4>Avg Track Popularity</h4>
+            <pre><code>Avg Track Popularity = AVERAGE(FACT_Tracks[track_popularity])</code></pre>
+            <p>Format: Decimal, 1 decimal place</p>
+            
+            <h4>Avg Track Duration</h4>
+            <pre><code>Avg Track Duration = AVERAGE(FACT_Tracks[track_duration_min])</code></pre>
+            <p>Format: Decimal, 2 decimal places</p>
+            
+            <h3>Calculated Columns</h3>
+            
+            <h4>Explicit Label (FACT_Tracks)</h4>
+            <p>Created in Power Query:</p>
+            <pre><code>// Power Query M
+if [explicit] = true then "Explicit"
+else if [explicit] = false then "Clean"
+else "Unknown"</code></pre>
+            
+            <h4>Duration Group (FACT_Tracks)</h4>
+            <p>Created in Power Query:</p>
+            <pre><code>// Power Query M - Conditional Column
+if [track_duration_min] < 2 then "0-2 min"
+else if [track_duration_min] < 3 then "2-3 min"
+else if [track_duration_min] < 4 then "3-4 min"
+else if [track_duration_min] < 5 then "4-5 min"
+else if [track_duration_min] < 6 then "5-6 min"
+else "6+ min"</code></pre>
+            
+            <h4>Decade (DIM_Albums)</h4>
+            <p>Created in Power BI (DAX):</p>
+            <pre><code>// Right-click DIM_Albums → New column
+Decade = 
+INT(YEAR(DIM_Albums[album_release_date]) / 10) * 10 & "s"</code></pre>
+            <p><strong>Explanation:</strong> Converts year to decade (2023 → "2020s", 1967 → "1960s")</p>
+
+            <h2 id="theme">13. Custom Spotify Theme</h2>
+            
+            <h3>Theme JSON File</h3>
+            <p>File provided: <code>Spotify_Dark_Theme.json</code></p>
+            
+            <h3>How to Apply</h3>
+            <ol>
+                <li>Download Spotify_Dark_Theme.json</li>
+                <li>View → Themes → Browse for themes...</li>
+                <li>Select the JSON file</li>
+                <li>Click Open</li>
+            </ol>
+            
+            <h3>Theme Colors</h3>
+            <table>
+                <tr>
+                    <th>Element</th>
+                    <th>Color</th>
+                    <th>Hex Code</th>
+                </tr>
+                <tr>
+                    <td>Background</td>
+                    <td>Black</td>
+                    <td>#191414</td>
+                </tr>
+                <tr>
+                    <td>Primary Accent</td>
+                    <td>Spotify Green</td>
+                    <td>#1DB954</td>
+                </tr>
+                <tr>
+                    <td>Secondary Accent</td>
+                    <td>Light Green</td>
+                    <td>#1ED760</td>
+                </tr>
+                <tr>
+                    <td>Text</td>
+                    <td>White</td>
+                    <td>#FFFFFF</td>
+                </tr>
+                <tr>
+                    <td>Secondary Text</td>
+                    <td>Gray</td>
+                    <td>#B3B3B3</td>
+                </tr>
+                <tr>
+                    <td>Cards</td>
+                    <td>Dark Gray</td>
+                    <td>#282828</td>
+                </tr>
+            </table>
+
+            <h2 id="page1">14. Page 1: Executive Overview</h2>
+            
+            <h3>Page Purpose</h3>
+            <p>High-level summary answering "What do we have?"</p>
+            
+            <h3>Components</h3>
+            
+            <h4>1. Header (Text Boxes)</h4>
+            <ul>
+                <li>Title: "🎵 SPOTIFY MUSIC ANALYTICS" (green, 36pt, bold)</li>
+                <li>Subtitle: "Executive Overview | Albums 1960-2024" (gray, 16pt)</li>
+            </ul>
+            
+            <h4>2. KPI Cards (5 cards in row)</h4>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                    <th>Meaning</th>
+                </tr>
+                <tr>
+                    <td>Total Tracks</td>
+                    <td>8,772</td>
+                    <td>Number of songs in dataset</td>
+                </tr>
+                <tr>
+                    <td>Total Artists</td>
+                    <td>2,547</td>
+                    <td>Unique artists</td>
+                </tr>
+                <tr>
+                    <td>Total Albums</td>
+                    <td>5,313</td>
+                    <td>Unique albums</td>
+                </tr>
+                <tr>
+                    <td>Avg Track Popularity</td>
+                    <td>52.4</td>
+                    <td>Spotify popularity score (0-100)</td>
+                </tr>
+                <tr>
+                    <td>Avg Track Duration</td>
+                    <td>3.50 min</td>
+                    <td>Average song length</td>
+                </tr>
+            </table>
+            
+            <h4>3. Top Artists By Track Count (Bar Chart)</h4>
+            <ul>
+                <li><strong>Type:</strong> Clustered bar chart (horizontal)</li>
+                <li><strong>Y-axis:</strong> DIM_Artists[artist_name]</li>
+                <li><strong>X-axis:</strong> Total Tracks measure</li>
+                <li><strong>Sort:</strong> Descending by Total Tracks</li>
+                <li><strong>Insight:</strong> Taylor Swift leads with 330 tracks</li>
+            </ul>
+            
+            <h4>4. Album Type Distribution (Donut Chart)</h4>
+            <ul>
+                <li><strong>Type:</strong> Donut chart</li>
+                <li><strong>Legend:</strong> DIM_Albums[album_type]</li>
+                <li><strong>Values:</strong> Count of album_id</li>
+                <li><strong>Insight:</strong> 53% singles, 41% albums, 6% compilations</li>
+            </ul>
+
+            <h2 id="page2">15. Page 2: Artist Deep Dive</h2>
+            
+            <h3>Page Purpose</h3>
+            <p>Detailed artist analysis answering "Who creates music?"</p>
+            
+            <h3>Components</h3>
+            
+            <h4>1. Filter By Genre (Slicer)</h4>
+            <ul>
+                <li><strong>Type:</strong> Dropdown slicer</li>
+                <li><strong>Field:</strong> DIM_Artists[main_category]</li>
+                <li><strong>Categories:</strong> Pop, Hip Hop, Rock, Electronic, Latin, R&B/Soul, etc.</li>
+                <li><strong>Multi-select:</strong> Enabled</li>
+            </ul>
+            
+            <h4>2. Top Artists Ranking (Table)</h4>
+            <p><strong>Columns:</strong></p>
+            <ul>
+                <li>Artist (artist_name renamed)</li>
+                <li>Popularity (artist_popularity)</li>
+                <li>Followers (artist_followers)</li>
+                <li>Total Tracks (measure)</li>
+            </ul>
+            <p><strong>Sort:</strong> Descending by Popularity</p>
+            <p><strong>Formatting:</strong> Green headers, alternating row colors</p>
+            
+            <h4>3. Followers vs Popularity (Scatter Plot)</h4>
+            <ul>
+                <li><strong>X-axis:</strong> artist_followers</li>
+                <li><strong>Y-axis:</strong> artist_popularity</li>
+                <li><strong>Legend:</strong> artist_name</li>
+                <li><strong>Tooltips:</strong> All three fields</li>
+                <li><strong>Insight:</strong> High followers doesn't always mean high popularity (legacy artists)</li>
+            </ul>
+
+            <h2 id="page3">16. Page 3: Content Analysis</h2>
+            
+            <h3>Page Purpose</h3>
+            <p>Track characteristics answering "What kind of music?"</p>
+            
+            <h3>Components</h3>
+            
+            <h4>1. Explicit Content Distribution (Donut Chart)</h4>
+            <ul>
+                <li><strong>Legend:</strong> FACT_Tracks[explicit_label] (Clean/Explicit)</li>
+                <li><strong>Values:</strong> Total Tracks</li>
+                <li><strong>Labels:</strong> Category + Percent</li>
+                <li><strong>Insight:</strong> 75% Clean, 25% Explicit</li>
+            </ul>
+            
+            <h4>2. Track Duration Distribution (Column Chart)</h4>
+            <ul>
+                <li><strong>X-axis:</strong> FACT_Tracks[Conditional Column] (duration groups)</li>
+                <li><strong>Y-axis:</strong> Total Tracks</li>
+                <li><strong>Categories:</strong> 0-2 min, 2-3 min, 3-4 min, 4-5 min, 5-6 min, 6+ min</li>
+                <li><strong>Insight:</strong> Peak at 3-4 minutes (~4K tracks) - standard radio length</li>
+            </ul>
+
+            <h2 id="page4">17. Page 4: Timeline & Trends</h2>
+            
+            <h3>Page Purpose</h3>
+            <p>Historical analysis answering "When was music released?"</p>
+            
+            <h3>Components</h3>
+            
+            <h4>1. Albums in Dataset by Release Year (Line Chart)</h4>
+            <ul>
+                <li><strong>X-axis:</strong> DIM_Albums[album_release_date] → Year hierarchy</li>
+                <li><strong>Y-axis:</strong> Count of album_id</li>
+                <li><strong>Trend:</strong> Exponential growth from ~10 (1960) to ~550 (2023)</li>
+                <li><strong>Y-axis title:</strong> "Number of Albums"</li>
+                <li><strong>X-axis title:</strong> "Year"</li>
+            </ul>
+            
+            <div class="warning">
+                <h4>⚠️ Important Interpretation</h4>
+                <p>This shows <strong>dataset composition</strong>, not global music production!</p>
+                <p>Dataset is biased toward contemporary music (80% from 2010-2024).</p>
+            </div>
+            
+            <h4>2. Albums per Decade (Column Chart)</h4>
+            <ul>
+                <li><strong>X-axis:</strong> DIM_Albums[Decade]</li>
+                <li><strong>Y-axis:</strong> Count of album_id</li>
+                <li><strong>Distribution:</strong>
+                    <ul>
+                        <li>2020s: ~2,200 albums (largest)</li>
+                        <li>2010s: ~2,000 albums</li>
+                        <li>2000s: ~700 albums</li>
+                        <li>1990s and earlier: <300 each</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h4>3. Average Track Duration Over Time (Line Chart)</h4>
+            <ul>
+                <li><strong>X-axis:</strong> Year</li>
+                <li><strong>Y-axis:</strong> Average of track_duration_min</li>
+                <li><strong>Trend:</strong> Remarkably stable at ~3.5 minutes across all decades</li>
+                <li><strong>Insight:</strong> "Radio length" (3-4 min) is a universal standard, independent of era</li>
+            </ul>
+
+            <h2 id="storytelling">18. Storytelling & Insights</h2>
+            
+            <h3>The Complete Story</h3>
+            
+            <h4>Overview (Page 1)</h4>
+            <p><strong>What we have:</strong> 8,772 tracks from 2,547 artists across 5,313 albums spanning 1960-2024.</p>
+            <p><strong>Key metric:</strong> Average track popularity of 52.4 suggests a mix of mainstream and niche content.</p>
+            
+            <h4>Artist Landscape (Page 2)</h4>
+            <p><strong>Dominant artists:</strong> Taylor Swift (330 tracks), The Weeknd (156), Ariana Grande (142)</p>
+            <p><strong>Genre distribution:</strong> Pop dominates, but dataset includes diverse genres from Rock to Latin</p>
+            <p><strong>Insight:</strong> High follower count ≠ high popularity (legacy artists vs. current trends)</p>
+            
+            <h4>Content Characteristics (Page 3)</h4>
+            <p><strong>Clean content prevails:</strong> 75% of tracks are clean, showing Spotify's broad audience focus</p>
+            <p><strong>Duration sweet spot:</strong> 3-4 minutes is the most common length (radio/streaming optimization)</p>
+            
+            <h4>Historical Context (Page 4)</h4>
+            <p><strong>Dataset bias:</strong> 80% of albums from 2010-2024 reflects:
+                <ul>
+                    <li>Spotify's focus on contemporary music</li>
+                    <li>Digital distribution explosion</li>
+                    <li>Curation choices in dataset creation</li>
+                </ul>
+            </p>
+            <p><strong>Duration stability:</strong> Despite genre evolution, popular tracks maintain ~3.5 min length across 60+ years</p>
+            
+            <h3>Key Insights Summary</h3>
+            <table>
+                <tr>
+                    <th>Finding</th>
+                    <th>Business Implication</th>
+                </tr>
+                <tr>
+                    <td>75% clean content</td>
+                    <td>Spotify prioritizes family-friendly content for broader reach</td>
+                </tr>
+                <tr>
+                    <td>3.5 min average duration</td>
+                    <td>"Radio length" optimizes for engagement and playlisting</td>
+                </tr>
+                <tr>
+                    <td>Dataset skewed to 2010s-2020s</td>
+                    <td>Platform reflects contemporary music trends</td>
+                </tr>
+                <tr>
+                    <td>Taylor Swift dominance</td>
+                    <td>Prolific artists create significant catalog value</td>
+                </tr>
+                <tr>
+                    <td>Stable duration across decades</td>
+                    <td>Listener attention span hasn't changed fundamentally</td>
+                </tr>
+            </table>
+            
+            <h3>Understanding Dataset Limitations</h3>
+            
+            <div class="warning">
+                <h4>⚠️ Critical Context</h4>
+                <p>This dataset represents a <strong>sample</strong> of Spotify's catalog, not the entire platform or global music production.</p>
+                
+                <p><strong>Bias sources:</strong></p>
+                <ul>
+                    <li>Selection criteria favoring popular/contemporary artists</li>
+                    <li>Spotify's algorithmic recommendations influencing what's included</li>
+                    <li>Missing genres, independent artists, or regional music</li>
+                </ul>
+                
+                <p><strong>Always state:</strong> "In this dataset..." not "All music..." or "Globally..."</p>
+            </div>
+
+            <h2 id="troubleshooting">19. Troubleshooting</h2>
+            
+            <h3>Common Issues</h3>
+            
+            <h4>Issue: Token Literal Expected (Power Query)</h4>
+            <p><strong>Cause:</strong> Starting formula with "=" or incorrect syntax</p>
+            <p><strong>Solution:</strong> Remove leading "=", use lowercase true/false, brackets around column names</p>
+            
+            <h4>Issue: Column Cannot Be Determined (DAX)</h4>
+            <p><strong>Cause:</strong> Using table[column] in calculated column context</p>
+            <p><strong>Solution:</strong> Use [column] without table name in calculated columns</p>
+            
+            <h4>Issue: Filters Panel Not Displaying</h4>
+            <p><strong>Cause:</strong> UI bug or theme conflict</p>
+            <p><strong>Solution:</strong>
+                <ol>
+                    <li>View → Filters (toggle off/on)</li>
+                    <li>Restart Power BI Desktop</li>
+                    <li>Use Slicers instead (visual filters)</li>
+                </ol>
+            </p>
+            
+            <h4>Issue: Hierarchies Not Showing Year</h4>
+            <p><strong>Cause:</strong> Column not recognized as date type</p>
+            <p><strong>Solution:</strong> Change column type to Date in Power Query</p>
+            
+            <h4>Issue: Relationships Not Auto-Detected</h4>
+            <p><strong>Cause:</strong> Column names don't match or data types different</p>
+            <p><strong>Solution:</strong> Manually create in Model view, verify column types match</p>
+            
+            <h4>Issue: Column Name With Spaces Won't Work</h4>
+            <p><strong>Example:</strong> [track duration min] returns error</p>
+            <p><strong>Solution:</strong> In DAX, use table name: 'FACT_Tracks'[track duration min]</p>
+
+            <h2 id="glossary">20. Glossary</h2>
+            
+            <h3>Data Modeling Terms</h3>
+            <table>
+                <tr>
+                    <th>Term</th>
+                    <th>Definition</th>
+                </tr>
+                <tr>
+                    <td>Star Schema</td>
+                    <td>Data model with central FACT table surrounded by DIM tables</td>
+                </tr>
+                <tr>
+                    <td>FACT Table</td>
+                    <td>Contains metrics/transactions (tracks, sales, events)</td>
+                </tr>
+                <tr>
+                    <td>DIM Table</td>
+                    <td>Contains attributes/descriptors (artists, products, locations)</td>
+                </tr>
+                <tr>
+                    <td>Primary Key</td>
+                    <td>Unique identifier in a table (track_id, artist_name)</td>
+                </tr>
+                <tr>
+                    <td>Foreign Key</td>
+                    <td>Reference to primary key in another table</td>
+                </tr>
+                <tr>
+                    <td>Cardinality</td>
+                    <td>Relationship type (One-to-Many, Many-to-One)</td>
+                </tr>
+                <tr>
+                    <td>Group By</td>
+                    <td>Aggregate rows with same value (deduplication)</td>
+                </tr>
+            </table>
+            
+            <h3>Power BI Terms</h3>
+            <table>
+                <tr>
+                    <th>Term</th>
+                    <th>Definition</th>
+                </tr>
+                <tr>
+                    <td>Power Query</td>
+                    <td>ETL tool for data transformation (M language)</td>
+                </tr>
+                <tr>
+                    <td>DAX</td>
+                    <td>Data Analysis Expressions - formula language</td>
+                </tr>
+                <tr>
+                    <td>Measure</td>
+                    <td>Calculated value (Total Tracks, Average Popularity)</td>
+                </tr>
+                <tr>
+                    <td>Calculated Column</td>
+                    <td>New column based on existing data</td>
+                </tr>
+                <tr>
+                    <td>Slicer</td>
+                    <td>Visual filter for user interaction</td>
+                </tr>
+                <tr>
+                    <td>M Language</td>
+                    <td>Power Query formula language</td>
+                </tr>
+            </table>
+            
+            <h3>Music Industry Terms</h3>
+            <table>
+                <tr>
+                    <th>Term</th>
+                    <th>Definition</th>
+                </tr>
+                <tr>
+                    <td>Popularity</td>
+                    <td>Spotify's 0-100 score based on recent plays</td>
+                </tr>
+                <tr>
+                    <td>Explicit Content</td>
+                    <td>Music with profanity, violence, or adult themes</td>
+                </tr>
+                <tr>
+                    <td>Album Type</td>
+                    <td>album (full release), single, compilation</td>
+                </tr>
+                <tr>
+                    <td>Track</td>
+                    <td>Individual song</td>
+                </tr>
+            </table>
+            
+            <div class="success">
+                <h4>🎉 Congratulations!</h4>
+                <p>You've built a professional, portfolio-ready Power BI dashboard with:</p>
+                <ul>
+                    <li>✅ Star Schema data model</li>
+                    <li>✅ Advanced Power Query transformations</li>
+                    <li>✅ DAX measures and calculated columns</li>
+                    <li>✅ 4 analytical pages with 10+ visualizations</li>
+                    <li>✅ Professional Spotify-themed design</li>
+                    <li>✅ Meaningful storytelling and insights</li>
+                </ul>
+                <p><strong>This project demonstrates enterprise-level BI skills!</strong></p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>📊 Spotify Power BI Dashboard - Complete Guide v2.0</p>
+            <p>Created with ❤️ for data analysts building professional portfolios</p>
+            <p>© 2024 - For educational purposes</p>
+        </footer>
+    </div>
+</body>
+</html>
